@@ -7,9 +7,7 @@ int main(int argc, char** argv) {
     struct argumentConfig argumentCfg = parseArguments(argc,argv);
 
     verbousePrint(argumentCfg,"Ala ma %d koty\n", 2);
-    if(argumentCfg.verbose){
-        printf("ala ma kota");
-    }
+
 
     return 0;
 }
