@@ -24,11 +24,9 @@ static error_t parse_opt(int key, char * arg, struct argp_state * state){
         case 'q':
         case 's':
             arguments->quiet = 0b1;
-            arguments->verbose = 0b0;
             break;
         case 'v':
             arguments->verbose = 0b1;
-            arguments->quiet = 0b0;
             break;
         default:
             return ARGP_ERR_UNKNOWN;
