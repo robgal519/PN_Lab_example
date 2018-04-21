@@ -1,113 +1,64 @@
-/*
-#include "stdio.h"
-#include "argParseSetup/argParseSetup.h"
-#include "logSetup/logSetup.h"
+#include <dlfcn.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <elf.h>
+#include <string.h>
 
+#define ARRSIZE 17
+#define SHARED_OBJECT 0x03
+typedef unsigned char byte;
 
-int main(int argc, char** argv) {
-    struct argumentConfig argumentCfg = parseArguments(argc,argv);
-
-    verbousePrint(argumentCfg,"Ala ma %d koty\n", 2);
-    fprint(argumentCfg,stdout,"test");
-    return 0;
-}
-*/
-
-#include <gtk/gtk.h>
-
-/* This is a callback function. The data arguments are ignored
- * in this example. More on callbacks below. */
-static void hello( GtkWidget *widget,
-                   gpointer   data )
-{
-    g_print ("Hello World\n");
-}
-
-static gboolean delete_event( GtkWidget *widget,
-                              GdkEvent  *event,
-                              gpointer   data )
-{
-    /* If you return FALSE in the "delete-event" signal handler,
-     * GTK will emit the "destroy" signal. Returning TRUE means
-     * you don't want the window to be destroyed.
-     * This is useful for popping up 'are you sure you want to quit?'
-     * type dialogs. */
-
-    g_print ("delete event occurred\n");
-
-    /* Change TRUE to FALSE and the main window will be destroyed with
-     * a "delete-event". */
-
-    return TRUE;
+int checkIfPlugin(const char *filename, byte *header, const char *prefix, const char *suffix) {
+    FILE *file = fopen(filename, "rb");
+    size_t bytesRead = fread(header, sizeof(*header), ARRSIZE, file);
+    fclose(file);
+    if (checkIfContains(filename, prefix, suffix) &&
+        bytesRead == ARRSIZE &&
+        header[0x00] == 0x7f &&
+        header[0x01] == 'E' &&
+        header[0x02] == 'L' &&
+        header[0x03] == 'F' &&
+        header[0x10] == SHARED_OBJECT) {
+        return 1;
+    }
 }
 
-/* Another callback */
-static void destroy( GtkWidget *widget,
-                     gpointer   data )
-{
-    gtk_main_quit ();
+int checkIfContains(const char *stringToTest, const char *prefix, const char *suffix) {
+    return
+            !strncmp(stringToTest, prefix, strlen(prefix)) &&
+            !strncmp(stringToTest + strlen(stringToTest) - strlen(suffix), suffix, strlen(suffix));
 }
 
-int main( int   argc,
-          char *argv[] )
-{
-    /* GtkWidget is the storage type for widgets */
-    GtkWidget *window;
-    GtkWidget *button;
+int main(int argc, const char *argv[]) {
+    const char *prefix = "plugin";
+    const char *suffix = ".so";
 
-    /* This is called in all GTK applications. Arguments are parsed
-     * from the command line and are returned to the application. */
-    gtk_init (&argc, &argv);
+    DIR *dir;
+    dir = opendir(".");
+    if (!dir) return -1;
 
-    /* create a new window */
-    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    const char *currentFilename;
+    byte header[ARRSIZE];
+    void *handler;
+    for (struct dirent *entity = readdir(dir); entity; entity = readdir(dir)) {
+        currentFilename = entity->d_name;
+        if(checkIfPlugin(currentFilename, header, prefix, suffix)){
+            char pluginPath[128] = { '\0' };
+            sprintf(pluginPath, "./%s", currentFilename);
+            handler = dlopen(pluginPath, RTLD_NOW);
+            const char *error = dlerror();
+            if(error)
+                puts(error);
+            else{
+                printf("%s plugin action:\n", currentFilename);
+                char startingFunction[128] = { 0 };
+                strncpy(startingFunction, currentFilename, strlen(currentFilename) - strlen(suffix));
+                ((void (*)(void))dlsym(handler, startingFunction))();
+                dlclose(handler);
+            }
 
-    /* When the window is given the "delete-event" signal (this is given
-     * by the window manager, usually by the "close" option, or on the
-     * titlebar), we ask it to call the delete_event () function
-     * as defined above. The data passed to the callback
-     * function is NULL and is ignored in the callback function. */
-    g_signal_connect (window, "delete-event",
-                      G_CALLBACK (delete_event), NULL);
 
-    /* Here we connect the "destroy" event to a signal handler.
-     * This event occurs when we call gtk_widget_destroy() on the window,
-     * or if we return FALSE in the "delete-event" callback. */
-    g_signal_connect (window, "destroy",
-                      G_CALLBACK (destroy), NULL);
+        }
+    }
 
-    /* Sets the border width of the window. */
-    gtk_container_set_border_width (GTK_CONTAINER (window), 10);
-
-    /* Creates a new button with the label "Hello World". */
-    button = gtk_button_new_with_label ("Hello World");
-
-    /* When the button receives the "clicked" signal, it will call the
-     * function hello() passing it NULL as its argument.  The hello()
-     * function is defined above. */
-    g_signal_connect (button, "clicked",
-                      G_CALLBACK (hello), NULL);
-
-    /* This will cause the window to be destroyed by calling
-     * gtk_widget_destroy(window) when "clicked".  Again, the destroy
-     * signal could come from here, or the window manager. */
-    g_signal_connect_swapped (button, "clicked",
-                              G_CALLBACK (gtk_widget_destroy),
-                              window);
-
-    /* This packs the button into the window (a gtk container). */
-    gtk_container_add (GTK_CONTAINER (window), button);
-
-    /* The final step is to display this newly created widget. */
-    gtk_widget_show (button);
-
-    /* and the window */
-    gtk_widget_show (window);
-
-    /* All GTK applications must have a gtk_main(). Control ends here
-     * and waits for an event to occur (like a key press or
-     * mouse event). */
-    gtk_main ();
-
-    return 0;
 }
