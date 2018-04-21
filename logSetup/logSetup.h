@@ -10,5 +10,6 @@
 #define verbouseFprint(cfg,stream,...) if(cfg.verbose){fprintf(stream,__VA_ARGS__);}
 
 #define print(cfg,...) if(!cfg.quiet){printf(__VA_ARGS__);}
+#define fprint(cfg,stream,...) if(!cfg.quiet){fprintf(stream,__VA_ARGS__);}
 
 #endif //PN_LAB_EXAMPLE_LOGSETUP_H
