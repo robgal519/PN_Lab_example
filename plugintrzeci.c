@@ -1,6 +1,6 @@
 #include <string.h>
 
-void firstDecoder(char *message){
+void thirdDecoder(char *message){
     for(int i=0; i<strlen(message); i++)
-        message[i] -= 10;
+        message[i] -= 4;
 }

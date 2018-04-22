@@ -1,7 +1,6 @@
 #include <dlfcn.h>
 #include <dirent.h>
 #include <stdio.h>
-#include <elf.h>
 #include <string.h>
 
 const char *prefix = "plugin";
@@ -10,6 +9,12 @@ const char *suffix = ".so";
 #define ARRSIZE 17
 #define SHARED_OBJECT 0x03
 typedef unsigned char byte;
+
+int checkIfContains(const char *stringToTest, const char *prefix, const char *suffix) {
+    return
+            !strncmp(stringToTest, prefix, strlen(prefix)) &&
+            !strncmp(stringToTest + strlen(stringToTest) - strlen(suffix), suffix, strlen(suffix));
+}
 
 int checkIfPlugin(const char *filename, const char *prefix, const char *suffix) {
     FILE *file = fopen(filename, "rb");
@@ -27,12 +32,6 @@ int checkIfPlugin(const char *filename, const char *prefix, const char *suffix) 
     }
 }
 
-int checkIfContains(const char *stringToTest, const char *prefix, const char *suffix) {
-    return
-            !strncmp(stringToTest, prefix, strlen(prefix)) &&
-            !strncmp(stringToTest + strlen(stringToTest) - strlen(suffix), suffix, strlen(suffix));
-}
-
 void *getLibHandler(const char *filename) {
     char pluginPath[128] = {'\0'};
     sprintf(pluginPath, "./%s", filename);
@@ -42,7 +41,11 @@ void *getLibHandler(const char *filename) {
 int main(int argc, const char *argv[]) {
     char message1[] = "Vkly|k~y|sk*ZX*}k*mkvusow*pktxo"; // 10
     char message2[] = "Q\"kng\"ukg\"mqowu\"ejeg\"tq|ykc|{yce\"|cfcpkc"; // 2
-    char message3[] = "IkZp]Z%]kh]srlmn]^g\\b8C^leb\\srmZlsmZpbZ]hfhl\\mh`kZmnenc^lZfhsZiZk\\bZ3\""; // -7
+    char message3[] = "Niwpm$hsxevpiw$e~$xyxen$xs$kvexypyni$weqs~etevgme$>-$>T"; // 4
+
+    char *messages[] = {message1, message2, message3};
+
+    const char *requiredFunctionNames[] = {"firstDecoder", "secondDecoder", "thirdDecoder"};
 
     DIR *dir;
     dir = opendir(".");
@@ -50,6 +53,7 @@ int main(int argc, const char *argv[]) {
 
     const char *currentFilename;
     void *handler;
+    void (*funPtr)(char *);
     for (struct dirent *entity = readdir(dir); entity; entity = readdir(dir)) {
         currentFilename = entity->d_name;
         if (checkIfPlugin(currentFilename, prefix, suffix)) {
@@ -58,16 +62,26 @@ int main(int argc, const char *argv[]) {
             if (error)
                 puts(error);
             else {
-                printf("%s plugin action:\n", currentFilename);
-                char startingFunction[128] = {0};
-                strncpy(startingFunction, currentFilename, strlen(currentFilename) - strlen(suffix));
-                ((void (*)(void)) dlsym(libHandler, startingFunction))();
+                printf("%s plugin found!\n", currentFilename);
+                puts("..function searching..");
+                for (int i = 0; i < (sizeof(requiredFunctionNames) / sizeof(const char *)); i++) {
+                    funPtr = (void (*)(char *)) dlsym(libHandler, requiredFunctionNames[i]);
+                    if (funPtr) {
+                        printf("%s function found! Applying it on message%d.\n", requiredFunctionNames[i], i);
+                        funPtr(messages[i]);
+                    }
+                    else
+                        printf("%s not found, continuing.\n", requiredFunctionNames[i]);
+
+                }
+                putchar('\n');
                 dlclose(libHandler);
-                break;
             }
-
-
         }
     }
 
+    puts("Messages after decoding:");
+    for (int i = 0; i<(sizeof(messages) / sizeof(const char *)); i++){
+        printf("Message %d: %s\n", i, messages[i]);
+    }
 }
