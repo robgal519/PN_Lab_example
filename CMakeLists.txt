@@ -11,4 +11,8 @@ pkg_check_modules(GTK2 REQUIRED gtk+-2.0)
 include_directories(${GTK2_INCLUDE_DIRS})
 link_directories(${GTK2_LIBRARY_DIRS})
 
+add_library(plugintest MODULE plugintest.c)
+set_target_properties(plugintest PROPERTIES PREFIX "")
+add_library(pluginpierwszy MODULE pluginpierwszy.c)
+set_target_properties(pluginpierwszy PROPERTIES PREFIX "")
 target_link_libraries(PN_lab_example ${GTK2_LIBRARIES} ${CMAKE_DL_LIBS})

@@ -8,8 +8,9 @@
 #define SHARED_OBJECT 0x03
 typedef unsigned char byte;
 
-int checkIfPlugin(const char *filename, byte *header, const char *prefix, const char *suffix) {
+int checkIfPlugin(const char *filename, const char *prefix, const char *suffix) {
     FILE *file = fopen(filename, "rb");
+    byte header[ARRSIZE];
     size_t bytesRead = fread(header, sizeof(*header), ARRSIZE, file);
     fclose(file);
     if (checkIfContains(filename, prefix, suffix) &&
@@ -38,11 +39,10 @@ int main(int argc, const char *argv[]) {
     if (!dir) return -1;
 
     const char *currentFilename;
-    byte header[ARRSIZE];
     void *handler;
     for (struct dirent *entity = readdir(dir); entity; entity = readdir(dir)) {
         currentFilename = entity->d_name;
-        if(checkIfPlugin(currentFilename, header, prefix, suffix)){
+        if(checkIfPlugin(currentFilename, prefix, suffix)){
             char pluginPath[128] = { '\0' };
             sprintf(pluginPath, "./%s", currentFilename);
             handler = dlopen(pluginPath, RTLD_NOW);
