@@ -4,6 +4,9 @@
 #include <elf.h>
 #include <string.h>
 
+const char *prefix = "plugin";
+const char *suffix = ".so";
+
 #define ARRSIZE 17
 #define SHARED_OBJECT 0x03
 typedef unsigned char byte;
@@ -30,9 +33,16 @@ int checkIfContains(const char *stringToTest, const char *prefix, const char *su
             !strncmp(stringToTest + strlen(stringToTest) - strlen(suffix), suffix, strlen(suffix));
 }
 
+void *getLibHandler(const char *filename) {
+    char pluginPath[128] = {'\0'};
+    sprintf(pluginPath, "./%s", filename);
+    return dlopen(pluginPath, RTLD_NOW);
+}
+
 int main(int argc, const char *argv[]) {
-    const char *prefix = "plugin";
-    const char *suffix = ".so";
+    char message1[] = "Vkly|k~y|sk*ZX*}k*mkvusow*pktxo"; // 10
+    char message2[] = "Q\"kng\"ukg\"mqowu\"ejeg\"tq|ykc|{yce\"|cfcpkc"; // 2
+    char message3[] = "IkZp]Z%]kh]srlmn]^g\\b8C^leb\\srmZlsmZpbZ]hfhl\\mh`kZmnenc^lZfhsZiZk\\bZ3\""; // -7
 
     DIR *dir;
     dir = opendir(".");
@@ -42,19 +52,18 @@ int main(int argc, const char *argv[]) {
     void *handler;
     for (struct dirent *entity = readdir(dir); entity; entity = readdir(dir)) {
         currentFilename = entity->d_name;
-        if(checkIfPlugin(currentFilename, prefix, suffix)){
-            char pluginPath[128] = { '\0' };
-            sprintf(pluginPath, "./%s", currentFilename);
-            handler = dlopen(pluginPath, RTLD_NOW);
+        if (checkIfPlugin(currentFilename, prefix, suffix)) {
+            void *libHandler = getLibHandler(currentFilename);
             const char *error = dlerror();
-            if(error)
+            if (error)
                 puts(error);
-            else{
+            else {
                 printf("%s plugin action:\n", currentFilename);
-                char startingFunction[128] = { 0 };
+                char startingFunction[128] = {0};
                 strncpy(startingFunction, currentFilename, strlen(currentFilename) - strlen(suffix));
-                ((void (*)(void))dlsym(handler, startingFunction))();
-                dlclose(handler);
+                ((void (*)(void)) dlsym(libHandler, startingFunction))();
+                dlclose(libHandler);
+                break;
             }
 
 
