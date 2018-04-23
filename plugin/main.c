@@ -33,9 +33,10 @@ int checkIfPlugin(const char *filename, const char *prefix, const char *suffix) 
 }
 
 void *getLibHandler(const char *filename) {
-    char pluginPath[128] = {'\0'};
-    sprintf(pluginPath, "./%s", filename);
-    return dlopen(pluginPath, RTLD_NOW);
+//    char pluginPath[128] = {'\0'};
+//    sprintf(pluginPath, "./%s", filename);
+//    return dlopen(pluginPath, RTLD_NOW);
+    return NULL;
 }
 
 int main(int argc, const char *argv[]) {
@@ -52,8 +53,8 @@ int main(int argc, const char *argv[]) {
     if (!dir) return -1;
 
     const char *currentFilename;
-    void *handler;
-    void (*funPtr)(char *);
+//    void *handler;
+//    void (*funPtr)(char *);
     for (struct dirent *entity = readdir(dir); entity; entity = readdir(dir)) {
         currentFilename = entity->d_name;
         if (checkIfPlugin(currentFilename, prefix, suffix)) {
@@ -65,14 +66,13 @@ int main(int argc, const char *argv[]) {
                 printf("%s plugin found!\n", currentFilename);
                 puts("..function searching..");
                 for (int i = 0; i < (sizeof(requiredFunctionNames) / sizeof(const char *)); i++) {
-                    funPtr = (void (*)(char *)) dlsym(libHandler, requiredFunctionNames[i]);
-                    if (funPtr) {
-                        printf("%s function found! Applying it on message%d.\n", requiredFunctionNames[i], i);
-                        funPtr(messages[i]);
-                    }
-                    else
-                        printf("%s not found, continuing.\n", requiredFunctionNames[i]);
-
+//                    funPtr = (void (*)(char *)) dlsym(libHandler, requiredFunctionNames[i]);
+//                    if (funPtr) {
+//                        printf("%s function found! Applying it on message%d.\n", requiredFunctionNames[i], i);
+//                        funPtr(messages[i]);
+//                    }
+//                    else
+//                        printf("%s not found, continuing.\n", requiredFunctionNames[i]);
                 }
                 putchar('\n');
                 dlclose(libHandler);
