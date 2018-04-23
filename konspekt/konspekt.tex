@@ -1,0 +1,108 @@
+\documentclass[12pt]{article}
+%\usepackage[polish]{babel}
+\usepackage{polski}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\title{Binutils, biblioteki statyczne i dynamiczne}								% Title
+\author{}								% Author
+\date{\today}											% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+    \includegraphics[scale = 0.75]{agh.jpg}\\[1.0 cm]	% University Logo
+   % \textsc{\LARGE Akademia Górniczo-Hutnicza im. Stanisława Staszica w Krakowie}\\[2.0 cm]	% University Name
+	\textsc{\Large Programowanie Niskopoziomowe}\\[0.5 cm]				% Course Code
+	\textsc{\large Konspekt Laboratoryjny}\\[0.5 cm]				% Course Name
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.4\textwidth}
+		\begin{flushleft} \large
+      \vspace{3cm}
+			\emph{Autorzy:}\\
+			Gabriel Górski\newline
+			Robert Gałat						% Your Student Number
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.4\textwidth}
+			\begin{flushright} \large
+		\end{flushright}
+	\end{minipage}\\[2 cm]
+	
+	{\large \thedate}\\[2 cm]
+ 
+	\vfill
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Informacje do zadań}
+
+\section{Zadania}
+\subsection{Binutils}
+\subsubsection{nm}
+Korzystajac z programu 'nm' znajdź jakie symbole znajdują się w pliku
+lib.......TODO........so.
+\subsubsection{objdump}
+Z pomocą programu objdump dokonaj deasemblacji biblioteki
+lib..........TODO.......so następnie użyj zdobytej wiedzy, aby program main
+wypisał ``hello'' na standardowe wyjście
+\subsection{Biblioteki statyczne}
+Celem zadania jest uzupełnienie pliku 'makefile' tak, aby umożliwał on
+kompilacje biblioteki statycznej, oraz zlinkowanie projektu do programu
+wynikowego.
+\subsection{Zmienne środowiskowe i biblioteki dynamiczne}
+\subsubsection{LD\_LIBRARY\_PATH}\label{ex1}
+Celem zadania jes napisanie makefile tak aby program main..............
+skompilował się i uruchomił bez błędów.
+\subsubsection{LD\_DEBUG}
+Korzystając z zadania \ref{ex1} oraz programu grep znajdź linijkę w której
+ładowana jest biblioteka którą napisano w tym zadaniu.
+\subsubsection{LD\_PRELOAD}
+Celem zadania jest napisanie biblioteki dynamicznej implementującej funkcje
+biblioteki .......TODO..... 'hello(char*)' - jej zachowanie ma powodować że każdy
+wyświetlony tekst będzie w kolorze zielonym (.......TODO......) Należy równierz
+pamiętać aby przywrócić domyślne ustawienia koloru po wypisaniu tekstu na
+standardowe wyjście.
+
+\subsection{Plugin}
+\subsubsection{Manager pluginów}
+Uzupełnij program main, tak aby poprawnie odczytywał plugin aaaaa.so
+\subsubsection{Plugin}
+Korzystając z poprzedniego zadania napisz plugin który wypisze na standardowe
+wyjście wiadomość powitalną
+
+\end{document}
