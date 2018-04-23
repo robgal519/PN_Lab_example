@@ -1,6 +1,6 @@
 all: main library
 	gcc -L. main.o -lhello -o main.out
-	@./main.out
+	./main.out
 
 main:
 	gcc -I. -c main.c -o main.o
