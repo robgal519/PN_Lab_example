@@ -12,4 +12,4 @@ LD_LIBRARY_PATH=. ./main.out
 
 
 # Na potrzeby nastepnego zadania :)
-cp -f main.out ../03_overwriting_library/.
+cp -f main.out ../ld_preload/.
