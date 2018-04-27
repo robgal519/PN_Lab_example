@@ -21,8 +21,8 @@ static bool_t initPlugin(PluginManager *PM, const char *path, const char *name) 
     void *handler;
     char functionName[128]={'\0'};
     char functionName1[128];
-    sprintf(pluginPath, "%s%s", path, name);
-    handler = dlopen(pluginPath, RTLD_NOW);
+    //Przygotuj ścieżkę do pliku z pluginem
+    //otwórz bibliotekę
     const char *error = dlerror();
     if (error) {
         puts(error);

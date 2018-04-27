@@ -5,20 +5,15 @@ int main(){
 
     puts("Program główny");
 
-    void *  lib = dlopen("./libfoo.so",RTLD_NOW);
-
-    if(!lib){
-        puts("problem z załadowaniem biblioteki");
-    }
-    else {
-        void (*hook)(void);
-        hook=dlsym(lib,"exampleFoo");
-        const char *libraryLoadingError = dlerror();
-        if (libraryLoadingError){
-            puts("Symbol nie znaleziony");
-        }else{
-            hook();
-        }
-    }
-    dlclose(lib);
+    //wczytaj plik biblioteki i pobierz handler
+    //sprawdź czy biblioteka została poprawnie otwarta
+      //przygotuj wskaźnik na funkcję
+        //pobierz wskaźnik na funkcję z biblioteki
+        //sprawdź czy wystąpił błąd
+          //uruchom funkcję
+    //zamknij bibliotekę
 }
+//Wynik:
+//Program główny
+//Funkcja z biblioteki
+
