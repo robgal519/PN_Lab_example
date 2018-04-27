@@ -34,8 +34,7 @@ static bool_t initPlugin(PluginManager *PM, const char *path, const char *name) 
         sprintf(functionName1, "init_%s", functionName);
         _init_hook = dlsym(handler, functionName1);
         _init_hook(PM);
-        puts("add hooks");
-
+        add_handler_to_PM(PM,handler);
     }
     return TRUE;
 

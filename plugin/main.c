@@ -8,7 +8,6 @@ const char *PluginAPI[]={"decodeMessage","upperCaseMessage"};
 
 int main(int argc, char **argv) {
     PluginManager *manager = PluginManager_new();
-    puts(PluginAPI[1]);
     puts("wiadomość początkowa");
     puts(message);
     fillPlugins(manager, PluginDirectory);

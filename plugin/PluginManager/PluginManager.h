@@ -22,9 +22,17 @@ typedef struct plugin_hook_list_element {
     struct plugin_hook_list_element *next;
 } hook_element;
 
+typedef struct pluginHandler{
+    void* pluginHandler;
+    struct pluginHandler* next;
+}plugin_handler;
+
 typedef struct PM_t {
     hook_element *head;
+    plugin_handler *handleHead;
 } PluginManager;
+
+void add_handler_to_PM(PluginManager* PM, void * handler);
 
 void register_new_hook(PluginManager *manager, pluginHook hook, const char *role);
 
