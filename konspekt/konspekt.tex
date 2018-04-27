@@ -20,31 +20,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{titlepage}
-	\centering \vspace*{0.5 cm} \includegraphics[scale = 0.75]{agh.jpg}\\[1.0
+  \centering \vspace*{0.5 cm} \includegraphics[scale = 0.75]{agh.jpg}\\[1.0
   cm] % University Logo
   % \textsc{\LARGE Akademia Górniczo-Hutnicza im. Stanisława Staszica w
   % Krakowie}\\[2.0 cm] % University Name
-	\textsc{\Large Programowanie Niskopoziomowe}\\[0.5 cm] % Course Code
-	\textsc{\large Konspekt Laboratoryjny}\\[0.5 cm] % Course Name
-	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
-	{ \huge \bfseries \thetitle}\\
-	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
-	
-	\begin{minipage}{0.4\textwidth}
-		\begin{flushleft} \large \vspace{3cm}
-			\emph{Autorzy:}\\
-			Gabriel Górski\newline Robert Gałat % Your Student Number
+  \textsc{\Large Programowanie Niskopoziomowe}\\[0.5 cm] % Course Code
+  \textsc{\large Konspekt Laboratoryjny}\\[0.5 cm] % Course Name
+  \rule{\linewidth}{0.2 mm} \\[0.4 cm]
+  { \huge \bfseries \thetitle}\\
+  \rule{\linewidth}{0.2 mm} \\[1.5 cm]
+
+  \begin{minipage}{0.4\textwidth}
+    \begin{flushleft} \large \vspace{3cm}
+      \emph{Autorzy:}\\
+      Gabriel Górski\newline Robert Gałat % Your Student Number
     \end{flushleft}
   \end{minipage}~
   \begin{minipage}{0.4\textwidth}
     \begin{flushright} \large
-		\end{flushright}
-	\end{minipage}\\[2 cm]
-	
-	{\large \thedate}\\[2 cm]
- 
-	\vfill
-	
+    \end{flushright}
+  \end{minipage}\\[2 cm]
+
+  {\large \thedate}\\[2 cm]
+
+  \vfill
+
 \end{titlepage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -82,18 +82,27 @@
   Wprowadź własną implementację tej funkcji. [\textbf{3}]
 \end{itemize}
 \subsection{Binutils}
-\subsubsection{nm}
-Korzystajac z programu 'nm' znajdź jakie symbole znajdują się w pliku
-lib.......TODO........so.
-\subsubsection{objdump}
-Z pomocą programu objdump dokonaj deasemblacji biblioteki
-lib..........TODO.......so następnie użyj zdobytej wiedzy, aby program main
-wypisał ``hello'' na standardowe wyjście
-\subsection{Plugin}
-\subsubsection{Manager pluginów}
-Uzupełnij program main, tak aby poprawnie odczytywał plugin aaaaa.so
-\subsubsection{Plugin}
-Korzystając z poprzedniego zadania napisz plugin który wypisze na standardowe
-wyjście wiadomość powitalną
+\begin{itemize}
+\item W tym zadaniu należy dokonać kompilacji pliku \textit{relocatableFile.c}
+  a następnie przeanalizować wygenerowany plik binarny programem \textit{nm}
+  oraz \textit{objdump} [\textbf{3}]
+\end{itemize}
+
+\subsection{Pluginy i dynamiczne ładowanie}
+\begin{itemize}
+\item Celem zadania jest uzupełnienie pliku \textit{main.c} w taki sposób aby
+  uruchomić funkcję z biblioteki libgoo.so, która powinna zostać załadowana w
+  czasie działania programu. [\textbf{5}]
+
+\item Celem zadania jest uzupełnienie brakujących części obsługi pluginów,
+  oraz napisanie własnego pluginu, wzorując się na przygotowanym przykładzie
+
+  Do uzupełnienia są następujące funkcje:[\textbf{6}]
+
+  \begin{itemize}
+  \item apply\_hook() \{PluginManager/PluginManager.c\}
+  \item initPlugi() \{PluginManager/PluginLoader.c\}
+  \end{itemize}
+\end{itemize}
 
 \end{document}
