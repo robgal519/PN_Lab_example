@@ -8,12 +8,10 @@ gcc -w -c notusedfunction.c
 
 gcc -w -c anotherfunction.c
 
+# Stwórz bibliotekę o nazwie 'a' z plików add2num.o dostuff.o notusedfunction.o
+
+# Stwórz bibliotekę o nazwie 'b' z plików anotherfunction.o
+
 gcc -w -c staticlibraryusage.c
 
-ar rcs liba.a add2num.o dostuff.o notusedfunction.o
-
-ar rcs libb.a anotherfunction.o
-
-gcc -L . staticlibraryusage.o -o staticlibraryusage.out -la -lb
-
-gcc -L . staticlibraryusage.o -o staticlibraryusage.out -lb -la
+# Zlinkuj biblioteki a i b wobec staticlibraryusage.o

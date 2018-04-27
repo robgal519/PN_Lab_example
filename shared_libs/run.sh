@@ -1,15 +1,16 @@
 #!/bin/sh -x
 rm -f *.out *.o *.a *.so
 
-gcc -fPIC -c first.c -o first.o
-gcc -fPIC -c second.c -o second.o
-gcc -shared first.o second.o -o libhello.so
+# Skompiluj pliki first.c i second.c z odpowiednimi flagami
 
-gcc -I. -c main.c -o main.o
-gcc -L. main.o -lhello -o main.out
+# Stwórz bibliotekę współdzielone w oparciu o wyniki kompilacji powyższych
+# plików
 
-LD_LIBRARY_PATH=. ./main.out
+# Skompiluj plik main.c
 
+# Zlinkuj efekt kompilacji pliku main.c z biblioteką współdzieloną
 
-# Na potrzeby nastepnego zadania :)
+# Uruchom program
+
+# Na potrzeby nastepnego zadania :) (nie zmieniać)
 cp -f main.out ../ld_preload/.

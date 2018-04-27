@@ -3,8 +3,8 @@ rm -f *.out *.o *.a *.so
 
 gcc -c first.c -o first.o
 gcc -c second.c -o second.o
-ar rcs libhello.a first.o second.o
+# Stwórz bibliotekę statyczną z powyższych plików obiektowych
 
-gcc -I. -c main.c -o main.o
-gcc -L. main.o -lhello -o main.out
+# Skompilowanie pliku main.c
+# Zlinkowanie pliku wykonywalnego (main.c + biblioteka)
 ./main.out
