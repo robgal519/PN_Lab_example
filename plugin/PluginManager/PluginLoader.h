@@ -1,7 +1,3 @@
-//
-// Created by robert on 26.04.18.
-//
-
 #ifndef PN_LAB_EXAMPLE_PLUGINLOADER_H
 #define PN_LAB_EXAMPLE_PLUGINLOADER_H
 

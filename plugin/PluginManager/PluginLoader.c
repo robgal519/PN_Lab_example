@@ -1,7 +1,3 @@
-//
-// Created by robert on 26.04.18.
-//
-
 #include "PluginLoader.h"
 #include <dirent.h>
 #include <stdio.h>
@@ -21,8 +17,8 @@ static bool_t initPlugin(PluginManager *PM, const char *path, const char *name) 
     void *handler;
     char functionName[128]={'\0'};
     char functionName1[128];
-    //Przygotuj ścieżkę do pliku z pluginem
-    //otwórz bibliotekę
+    // Przygotuj ścieżkę do pliku z pluginem
+    // Otwórz bibliotekę
     const char *error = dlerror();
     if (error) {
         puts(error);

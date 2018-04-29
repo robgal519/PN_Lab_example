@@ -1,6 +1,3 @@
-//
-// Created by robert on 27.04.18.
-//
 #include <ctype.h>
 #include <string.h>
 #include "../PluginManager/PluginManager.h"
