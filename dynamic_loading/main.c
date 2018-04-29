@@ -5,15 +5,16 @@ int main(){
 
     puts("Program główny");
 
-    //wczytaj plik biblioteki i pobierz handler
-    //sprawdź czy biblioteka została poprawnie otwarta
-      //przygotuj wskaźnik na funkcję
-        //pobierz wskaźnik na funkcję z biblioteki
-        //sprawdź czy wystąpił błąd
-          //uruchom funkcję
-    //zamknij bibliotekę
+    // Wczytaj plik biblioteki i pobierz handler
+    // Sprawdź czy biblioteka została poprawnie otwarta
+    // Przygotuj wskaźnik na funkcję
+    // Pobierz wskaźnik na funkcję z biblioteki
+    // Sprawdź czy wystąpił błąd
+    // Uruchom pobraną funkcję
+    // Zamknij bibliotekę
 }
-//Wynik:
-//Program główny
-//Funkcja z biblioteki
+
+// Wynik działania programu:
+// Program główny
+// Funkcja z biblioteki
 
