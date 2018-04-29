@@ -19,14 +19,14 @@ bool_t apply_hook(PluginManager *manager, const char role[RoleNameLength], INOUT
     while (element) {
       // Sprawdź czy funkcjonalność znajduje się na liście funkcjonalności załadowanych pluginów
       if (/* Wstaw kod */) {
-            // Znaleziono funkcjonalność, wykonaj ją
+        // Znaleziono funkcjonalność, wykonaj ją
         // Funkcja zakończyła się powodzeniem
         return TRUE;
-        }
+      }
       else {
-            // Sprawdź element next, ostatni zawsze musi być NULLem, tak by pętla nie była nieskończona - jak w liście
-            element = element->next;
-        }
+        // Sprawdź element next, ostatni zawsze musi być NULLem, tak by pętla nie była nieskończona - jak w liście
+        element = element->next;
+      }
     }
     return FALSE;
 }
