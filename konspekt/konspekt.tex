@@ -3,7 +3,7 @@
 \usepackage{polski} \usepackage{natbib} \usepackage{url}
 \usepackage[utf8]{inputenc} \usepackage{amsmath} \usepackage{graphicx}
 \usepackage{parskip} \usepackage{fancyhdr} \usepackage{vmargin} \setmarginsrb{3
-  cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+  cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm} \usepackage{listings}
 
 \title{Binutils, biblioteki statyczne i dynamiczne} % Title
 \author{} % Author
@@ -56,19 +56,53 @@
 
 
 \section{Informacje do zadań}
+W tym miejscu zakładamy, że ogólnie rozumiana teoria z seminarium jest znana
+uczestnikom laboratorium. Poniżej znajdują się rzeczy przydatne w wykonywaniu
+zadań z laboratorium.
+\subsection{Biblioteki statyczne}
+Jeśli chcemy utworzyć bibliotekę statyczną, potrzebujemy pliki obiektowe które
+mają się w niej znaleźć. Komenda wygląda następująco
+\begin{lstlisting}
+  ar rcs libNAZWA.a plik1.o plik2.o plik3.o
+\end{lstlisting}
+Żeby wykorzystać tą bibliotekę należy ją \textbf{zlinkować} z resztą plików
+obiektowych (na tym etapie symbol \textit{musi} się zawierać w którymś z nich).
+\begin{lstlisting}
+
+\end{lstlisting}
+\subsection{Biblioteki współdzielone}
+Podobnie ma się z bibliotekami dynamiczną, tutaj jednak należy pamiętać o
+większej ilości niuansów.
+
+Po pierwsze składowe pliki obiektowe biblioteki należy skompilować z flagą
+\textbf{fPIC}.
+
+Tworzenie biblioteki:
+\begin{lstlisting}
+  gcc -shared plik1.o plik2.o plik3.o -o libNAZWA.so
+\end{lstlisting}
+
+Wykorzystanie biblioteki:
+
+\begin{lstlisting}
+  gcc -L . plik.o -o plik -lNAZWA
+\end{lstlisting}
+
+
+
 
 \section{Zadania}
 \subsection{Biblioteki statyczne}
 \begin{itemize}
-\item Celem zadania jest uzupełnienie pliku \textbf{run.sh} tak, aby
-  umożliwał on kompilację biblioteki statycznej, oraz zlinkowanie projektu do
-  programu wynikowego. [\textbf{1a}]
-\item Celem zadania jest uzupełnienie pliku \textbf{run.sh} tak, aby
-  stworzyć biblioteki statyczne oraz zlinkować je z \textit{głównym} plikiem
-  obiektowym. Czy zauważasz coś ciekawego? Jeśli tak, to czy potrafisz to
-  wyjaśnić? [\textbf{1b}]
+\item Celem zadania jest uzupełnienie pliku \textbf{run.sh} tak, aby umożliwał
+  on kompilację biblioteki statycznej, oraz zlinkowanie projektu do programu
+  wynikowego. [\textbf{1a}]
+\item Celem zadania jest uzupełnienie pliku \textbf{run.sh} tak, aby stworzyć
+  biblioteki statyczne oraz zlinkować je z \textit{głównym} plikiem obiektowym.
+  Czy zauważasz coś ciekawego? Jeśli tak, to czy potrafisz to wyjaśnić?
+  [\textbf{1b}]
 \end{itemize}
-\subsection{Biblioteki dynamiczne}
+\subsection{Biblioteki współdzielone}
 \begin{itemize}
 \item W tym zadaniu należy utworzyć bibliotekę dynamiczną, zlinkować wobec niej
   plik obiektowy, a następnie otrzymany plik wykonywalny należy uruchomić ---
@@ -83,9 +117,9 @@
 \end{itemize}
 \subsection{Binutils}
 \begin{itemize}
-\item W tym zadaniu należy dokonać kompilacji pliku \textit{relocatableFile.c}
-  a następnie przeanalizować wygenerowany plik binarny programem \textit{nm}
-  oraz \textit{objdump} [\textbf{3}]
+\item W tym zadaniu należy dokonać kompilacji pliku \textit{relocatableFile.c} a
+  następnie przeanalizować wygenerowany plik binarny programem \textit{nm} oraz
+  \textit{objdump} [\textbf{4}]
 \end{itemize}
 
 \subsection{Pluginy i dynamiczne ładowanie}
@@ -94,8 +128,8 @@
   uruchomić funkcję z biblioteki libgoo.so, która powinna zostać załadowana w
   czasie działania programu. [\textbf{5}]
 
-\item Celem zadania jest uzupełnienie brakujących części obsługi pluginów,
-  oraz napisanie własnego pluginu, wzorując się na przygotowanym przykładzie
+\item Celem zadania jest uzupełnienie brakujących części obsługi pluginów, oraz
+  napisanie własnego pluginu, wzorując się na przygotowanym przykładzie
 
   Do uzupełnienia są następujące funkcje:[\textbf{6}]
 
