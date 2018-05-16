@@ -57,7 +57,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Wstęp}
-TODO
+Przy przygotowaniu laboratoriów staraliśmy się tworzyć zadania intensywnie
+wykorzystujące zagadnienia przekazane studentom w czasie naszych seminariów.
+Uważamy, że zadanie się udało, chociaż nie udało się uniknąć pewnych
+niedociągnięć.
 
 \section{Zadania}
 \subsection{Biblioteki statyczne}
@@ -69,6 +72,8 @@ TODO
   \begin{itemize}
   \item[$+$] Prosto i szybko wprowadza studenta w tematykę tworzenia bibliotek
     statycznych
+  \item[$+$] Wprowadzenie do najbardziej użytecznych i fundamentalnych przy
+    tworzeniu bibliotek flag \textit{gcc}
   \item[$-$] Zadanie jest \textit{odtwórcze} --- polega jedynie na przepisaniu
     fragmentu konspektu do pliku skryptu
   \end{itemize}
@@ -93,24 +98,28 @@ TODO
   pamiętaj o odpowiednich flagach kompilacji i linkowania! [\textbf{2}]\\ \\
   \textbf{Zalety i wady}:
   \begin{itemize}
-  \item[$+$] Łączy problematykę linkowania dynamicznego z tworzeniem i używaniem
-    bibliotek dynamicznych
-  \item[$-$] Nietrafiona konstrukcja konspektu oddzielająca zagadnienia bibliotek
-    współdzielonych od zmiennych środowiskowych linkera dynamicznego wywoływała
-    konieczność dodatkowego tłumaczenia \textit{(Wniosek: Lepsze zgrupowanie
-      informacji zawartych w konspekcie)}
+  \item[$+$] Łączy problematykę linkowania dynamicznego (zmienne środowiskowe) z
+    tworzeniem i używaniem bibliotek dynamicznych
+  \item[$+$] Utrwalenie i konfrontacja informacji zdobytych podczas poprzednich
+    zadań - uświadomienie sobie różnic między typami bibliotek i sposobami ich
+    tworzenia
+  \item[$-$] Nietrafiona konstrukcja konspektu oddzielająca zagadnienia
+    bibliotek współdzielonych od zmiennych środowiskowych linkera dynamicznego
+    wywoływała konieczność dodatkowego tłumaczenia \textit{(Wniosek: Lepsze
+      zgrupowanie informacji zawartych w konspekcie)}
   \end{itemize}
 \item Celem zadania jest podmienienie implementacji funkcji która była w
   bibliotece z poprzedniego zadania.
 
-  Należy to zrobić bez bez modyfikacji pliku wykonywalnego z poprzedniego
-  zadania tj. poprzez wykorzystanie funkcjonalności linkera dynamicznego.
+  Należy to zrobić bez modyfikacji pliku wykonywalnego z poprzedniego zadania
+  tj. poprzez wykorzystanie funkcjonalności linkera dynamicznego.
 
   Wprowadź własną implementację tej funkcji. [\textbf{3}]\\ \\
   \textbf{Zalety i wady}:
   \begin{itemize}
   \item[$+$] W przystępny sposób studenci starli się z dalszą obsługą linkera
-    dynamicznego
+    dynamicznego i w jaki sposób można \textit{oszukiwać} pliki wykonywalne w
+    odniesieniu do dostarczanych im symboli
   \item[$-$] Brak precyzji w wymaganym nazewnictwie plików obiektowych
     powodujący niedziałające współzależności między zadaniami \textit{Wniosek:
       Usunięcie zależności między zadaniami}
@@ -127,6 +136,7 @@ TODO
     binarnych/obiektowych
   \item[$-$] Spreparowany przykład sugerował kompilację + linkowanie zamiast
     \textit{jedynie} kompilację --- konsternacja studentów
+  \item[$-$] Poświęcenie tematowi mniej czasu niż pozostałym zagadnieniom
   \end{itemize}
 
 \end{itemize}
@@ -160,5 +170,21 @@ TODO
   \end{itemize}
 
 \end{itemize}
+
+\section{Ostateczne uwagi}
+Niestety przygotowana ilość materiału okazała się być niewystarczająca na
+potrzeby laboratorium. Dodatkowym problemem była znaczna różnica poziomów
+reprezentowana przez niektórych studentów. Kilka wybitnych osób skończyło 1h+
+przed czasem, część --- gdyby nie znaczna pomoc ze strony prowadzących --- nie
+ukończyłaby wszystkich zadań w czasie zajęć.
+
+Znacznym pozytywem jest jednak to, że wszystkim udało się ukończyć wszystkie
+zadania, mając w ten sposób możliwość przejścia przez wszystkie zawiłości i
+trudności opracowywanego przez nas tematu.
+
+Wg nas wszystkie najważniejsze zagadnienia dotyczące plików obiektowych (przez
+najważniejsze rozumiemy wszystkie te fundamentalne, związane z przyszłą pracą
+inżyniera) zostały w projekcie poruszone i liczymy, że także zrozumiane przez
+uczestników laboratoriów oraz seminariów.
 
 \end{document}
