@@ -1,0 +1,190 @@
+\documentclass[12pt]{article}
+\usepackage{polski} \usepackage{natbib} \usepackage{url}
+\usepackage[utf8]{inputenc} \usepackage{amsmath} \usepackage{graphicx}
+\usepackage{parskip} \usepackage{fancyhdr} \usepackage{vmargin} \setmarginsrb{3
+  cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm} \usepackage{listings}
+
+\lstset{basicstyle=\ttfamily, showstringspaces=false, commentstyle=\color{red},
+  keywordstyle=\color{blue} }
+
+\title{Binutils, biblioteki statyczne i dynamiczne} % Title
+\author{} % Author
+\date{15 V 2018} % Date
+
+\makeatletter \let\thetitle\@title \let\theauthor\@author \let\thedate\@date
+\makeatother
+
+\pagestyle{fancy} \fancyhf{} \rhead{\theauthor} \lhead{\thetitle}
+\cfoot{\thepage}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+  \centering \vspace*{0.5 cm} \includegraphics[scale = 0.75]{agh.jpg}\\[1.0
+  cm] % University Logo
+  % \textsc{\LARGE Akademia Górniczo-Hutnicza im. Stanisława Staszica w
+  % Krakowie}\\[2.0 cm] % University Name
+  \textsc{\Large Programowanie Niskopoziomowe}\\[0.5 cm] % Course Code
+  \textsc{\large Sprawozdanie\\Laboratoryjne}\\[0.5 cm] % Course Name
+  \rule{\linewidth}{0.2 mm} \\[0.4 cm]
+  { \huge \bfseries \thetitle}\\
+  \rule{\linewidth}{0.2 mm} \\[1.5 cm]
+
+  \begin{minipage}{0.4\textwidth}
+    \begin{flushleft} \large \vspace{3cm}
+      \emph{Autorzy:}\\
+      Gabriel Górski\newline Robert Gałat % Your Student Number
+    \end{flushleft}
+  \end{minipage}~
+  \begin{minipage}{0.4\textwidth}
+    \begin{flushright} \large
+    \end{flushright}
+  \end{minipage}\\[2 cm]
+
+  {\large \thedate}\\[2 cm]
+
+  \vfill
+
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Wstęp}
+Przy przygotowaniu laboratoriów staraliśmy się tworzyć zadania intensywnie
+wykorzystujące zagadnienia przekazane studentom w czasie naszych seminariów.
+Uważamy, że zadanie się udało, chociaż nie udało się uniknąć pewnych
+niedociągnięć.
+
+\section{Zadania}
+\subsection{Biblioteki statyczne}
+\begin{itemize}
+\item Celem zadania jest uzupełnienie pliku \textbf{run.sh} tak, aby umożliwał
+  on kompilację biblioteki statycznej, oraz zlinkowanie projektu do programu
+  wynikowego. [\textbf{1a}]\\ \\
+  \textbf{Zalety i wady}:
+  \begin{itemize}
+  \item[$+$] Prosto i szybko wprowadza studenta w tematykę tworzenia bibliotek
+    statycznych
+  \item[$+$] Wprowadzenie do najbardziej użytecznych i fundamentalnych przy
+    tworzeniu bibliotek flag \textit{gcc}
+  \item[$-$] Zadanie jest \textit{odtwórcze} --- polega jedynie na przepisaniu
+    fragmentu konspektu do pliku skryptu
+  \end{itemize}
+\item Celem zadania jest uzupełnienie pliku \textbf{run.sh} tak, aby stworzyć
+  biblioteki statyczne oraz zlinkować je z \textit{głównym} plikiem obiektowym.
+  Czy zauważasz coś ciekawego? Jeśli tak, to czy potrafisz to wyjaśnić?
+  [\textbf{1b}]\\ \\
+  \textbf{Zalety i wady}:
+  \begin{itemize}
+  \item[$+$] Zadanie jasno pokazuje znaczenie kolejności linkowania bibliotek
+    statycznych prowokując studenta do myślenia
+  \item[$-$] Częściowy brak zrozumienia celu zadania wywołujący konsternację u
+    studentów --- konieczne było dodatkowe tłumaczenie \textit{(Wniosek:
+      zwiększenie stopnia interaktywności w zadaniu, przykładowo dodanie
+      graficznej interpretacji listy brakujących referencji z kroku na krok)}
+  \end{itemize}
+\end{itemize}
+\subsection{Biblioteki współdzielone}
+\begin{itemize}
+\item W tym zadaniu należy utworzyć bibliotekę dynamiczną, zlinkować wobec niej
+  plik obiektowy, a następnie otrzymany plik wykonywalny należy uruchomić ---
+  pamiętaj o odpowiednich flagach kompilacji i linkowania! [\textbf{2}]\\ \\
+  \textbf{Zalety i wady}:
+  \begin{itemize}
+  \item[$+$] Łączy problematykę linkowania dynamicznego (zmienne środowiskowe) z
+    tworzeniem i używaniem bibliotek dynamicznych
+  \item[$+$] Utrwalenie i konfrontacja informacji zdobytych podczas poprzednich
+    zadań - uświadomienie sobie różnic między typami bibliotek i sposobami ich
+    tworzenia
+  \item[$-$] Nietrafiona konstrukcja konspektu oddzielająca zagadnienia
+    bibliotek współdzielonych od zmiennych środowiskowych linkera dynamicznego
+    wywoływała konieczność dodatkowego tłumaczenia \textit{(Wniosek: Lepsze
+      zgrupowanie informacji zawartych w konspekcie)}
+  \end{itemize}
+\item Celem zadania jest podmienienie implementacji funkcji która była w
+  bibliotece z poprzedniego zadania.
+
+  Należy to zrobić bez modyfikacji pliku wykonywalnego z poprzedniego zadania
+  tj. poprzez wykorzystanie funkcjonalności linkera dynamicznego.
+
+  Wprowadź własną implementację tej funkcji. [\textbf{3}]\\ \\
+  \textbf{Zalety i wady}:
+  \begin{itemize}
+  \item[$+$] W przystępny sposób studenci starli się z dalszą obsługą linkera
+    dynamicznego i w jaki sposób można \textit{oszukiwać} pliki wykonywalne w
+    odniesieniu do dostarczanych im symboli
+  \item[$-$] Brak precyzji w wymaganym nazewnictwie plików obiektowych
+    powodujący niedziałające współzależności między zadaniami \textit{Wniosek:
+      Usunięcie zależności między zadaniami}
+  \end{itemize}
+\end{itemize}
+\subsection{Binutils}
+\begin{itemize}
+\item W tym zadaniu należy dokonać kompilacji pliku \textit{relocatableFile.c} a
+  następnie przeanalizować wygenerowany plik binarny programem \textit{nm} oraz
+  \textit{objdump} [\textbf{4}]\\ \\
+  \textbf{Zalety i wady}:
+  \begin{itemize}
+  \item[$+$] Przedstawienie fundamentalnych narzędzi do analizy plików
+    binarnych/obiektowych
+  \item[$-$] Spreparowany przykład sugerował kompilację + linkowanie zamiast
+    \textit{jedynie} kompilację --- konsternacja studentów
+  \item[$-$] Poświęcenie tematowi mniej czasu niż pozostałym zagadnieniom
+  \end{itemize}
+
+\end{itemize}
+
+\subsection{Pluginy i dynamiczne ładowanie}
+\begin{itemize}
+\item Celem zadania jest uzupełnienie pliku \textit{main.c} w taki sposób aby
+  uruchomić funkcję z biblioteki libfoo.so, która powinna zostać załadowana w
+  czasie działania programu. [\textbf{5}]\\ \\
+  \textbf{Zalety i wady}:
+  \begin{itemize}
+  \item[$+$] Przykład w doskonały i przystępny sposób prezentuje zagadnienia
+    związane z dynamicznym ładowaniem bibliotek/symboli
+  \end{itemize}
+
+\item Celem zadania jest uzupełnienie brakujących części obsługi pluginów, oraz
+  napisanie własnego pluginu, wzorując się na przygotowanym przykładzie
+
+  Do uzupełnienia są następujące funkcje:[\textbf{6}]
+
+  \begin{itemize}
+  \item apply\_hook() \{PluginManager/PluginManager.c\}
+  \item initPlugin() \{PluginManager/PluginLoader.c\}
+  \end{itemize}
+  \textbf{Zalety i wady}:
+  \begin{itemize}
+  \item[$+$] Angażujące zadanie dostarczające informacji o wzorcach
+    wykorzystywanych przy budowaniu programów opartych na pluginach
+  \item[$-$] Zadanie nieco przytłaczające dla studentów, wymagające dodatkowej
+    pomocy ze strony prowadzących
+  \end{itemize}
+
+\end{itemize}
+
+\section{Ostateczne uwagi}
+Niestety przygotowana ilość materiału okazała się być niewystarczająca na
+potrzeby laboratorium. Dodatkowym problemem była znaczna różnica poziomów
+reprezentowana przez niektórych studentów. Kilka wybitnych osób skończyło 1h+
+przed czasem, część --- gdyby nie znaczna pomoc ze strony prowadzących --- nie
+ukończyłaby wszystkich zadań w czasie zajęć.
+
+Znacznym pozytywem jest jednak to, że wszystkim udało się ukończyć wszystkie
+zadania, mając w ten sposób możliwość przejścia przez wszystkie zawiłości i
+trudności opracowywanego przez nas tematu.
+
+Wg nas wszystkie najważniejsze zagadnienia dotyczące plików obiektowych (przez
+najważniejsze rozumiemy wszystkie te fundamentalne, związane z przyszłą pracą
+inżyniera) zostały w projekcie poruszone i liczymy, że także zrozumiane przez
+uczestników laboratoriów oraz seminariów.
+
+\end{document}
