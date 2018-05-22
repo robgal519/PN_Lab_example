@@ -9,3 +9,6 @@ example.o: example.c
 
 a.out: example.o
 	gcc example.o -ldl
+
+clean:
+	rm foo.o loifoo.so example.o a.out

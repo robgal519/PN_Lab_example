@@ -1,10 +1,12 @@
 SHELL:=/bin/bash -O extglob
 
+all: strip
+
 *.o: *.c
 	gcc -c $^
 
 clean:
-	rm *.o*
+	rm *.o*; cd 00; make clean;
 
 a.out: *.o
 	cd 00; make; cd ..; gcc 01.o 00/00.o

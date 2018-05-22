@@ -1,4 +1,7 @@
 SHELL:=/bin/bash -O extglob
+
+all: a.out
+
 foo.o: foo.c
 	gcc -c -fPIC -g foo.c
 a.out:example.c libfoo.so
@@ -12,3 +15,5 @@ run:a.out
 objdump:libfoo.so
 	./dump.sh
 
+clean:
+	rm foo.o a.out libfoo.so
