@@ -24,6 +24,9 @@ Zastrzeżenie: Pozwoliłem sobie --- wbrew zaleceniom z Pańskiej strony --- zdu
 pliki zadań dla klarowności podziału rozwiązań od zadań i łatwości przetestowania
 przykładów
 
+Uwaga: Archiwum należy wypakować przy udziale systemu plików wspierającego linki symboliczne
+- konieczne do zbudowania rozwiązanych zadań
+
 Wynik tree:
 .
 ├── LabSpr
